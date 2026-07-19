@@ -3,36 +3,43 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
-    <title>Happy Birthday Gungun ✨</title>
+    <title>Birthday Wish Card - Gungun ✨</title>
     <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Poppins:wght@400;600&display=swap" rel="stylesheet">
     <style>
-        /* --- RESET & BASIC --- */
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body { font-family: 'Poppins', sans-serif; background: #0b0719; color: #fff; overflow-x: hidden; overflow-y: auto; }
         .hidden { display: none !important; }
         button { cursor: pointer; border: none; outline: none; }
 
-        /* --- BACKGROUND --- */
         .bg-layer { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; background: radial-gradient(circle at 50% 50%, #1b1136, #0b0719); }
 
-        /* --- SECTION 1: WELCOME COUNTDOWN --- */
+        /* --- STEP 1: COUNTDOWN --- */
         #step-welcome {
             display: flex; flex-direction: column; justify-content: center; align-items: center;
             min-height: 100vh; text-align: center; padding: 20px;
         }
-        .logo-text { font-family: 'Dancing Script', cursive; font-size: 3rem; color: #ffd700; margin-bottom: 20px; }
-        .countdown-box { font-size: 1.2rem; margin: 20px 0; }
-        .timer-display { font-size: 4rem; color: #ffd700; font-weight: bold; }
-        .btn-skip { padding: 12px 30px; border-radius: 30px; background: rgba(255,255,255,0.1); color: #fff; font-size: 1rem; margin-top: 20px; backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,0.2); }
+        .logo-text { font-family: 'Dancing Script', cursive; font-size: 2.8rem; color: #ffd700; margin-bottom: 10px; text-shadow: 0 0 20px rgba(255,215,0,0.3); }
+        .age-box {
+            background: rgba(255,255,255,0.05); padding: 15px 20px; border-radius: 20px;
+            border: 1px solid rgba(255,215,0,0.2); margin-bottom: 25px; width: 100%; max-width: 350px;
+        }
+        .age-box p { font-size: 0.9rem; color: #d1d1d1; line-height: 1.8; }
+        .age-highlight { color: #ffd700; font-weight: bold; }
+        
+        .countdown-box { font-size: 1.2rem; margin: 15px 0; }
+        .timer-display { font-size: 2.5rem; color: #ffd700; font-weight: bold; display: flex; justify-content: center; gap: 10px; flex-wrap: wrap; }
+        .timer-unit { font-size: 0.8rem; color: #aaa; display: block; font-weight: normal; }
+        
+        .btn-skip { padding: 12px 30px; border-radius: 30px; background: rgba(255,255,255,0.1); color: #fff; font-size: 1rem; margin-top: 20px; backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,0.2); transition: 0.3s; }
+        .btn-skip:active { transform: scale(0.95); }
 
-        /* --- SECTION 2: SLIDESHOW --- */
+        /* --- STEP 2: SLIDESHOW --- */
         #step-slideshow {
             display: flex; flex-direction: column; justify-content: center; align-items: center;
             min-height: 100vh; padding: 20px;
         }
         .slideshow-container {
-            width: 100%; max-width: 400px; height: 500px;
-            position: relative; overflow: hidden; border-radius: 20px;
+            width: 100%; max-width: 400px; height: 500px; position: relative; overflow: hidden; border-radius: 20px;
             box-shadow: 0 20px 50px rgba(0,0,0,0.8);
         }
         .slide-img {
@@ -40,8 +47,13 @@
             object-fit: cover; opacity: 0; transition: opacity 1.5s ease-in-out;
         }
         .slide-img.active { opacity: 1; }
+        
+        .photo-note {
+            margin-top: 20px; font-size: 0.9rem; color: #d1d1d1; max-width: 350px; text-align: center;
+            background: rgba(255,255,255,0.03); padding: 10px; border-radius: 10px; border-left: 3px solid #ffd700;
+        }
 
-        /* --- SECTION 3: BIRTHDAY MESSAGE --- */
+        /* --- STEP 3: MESSAGE --- */
         #step-message {
             display: flex; flex-direction: column; justify-content: center; align-items: center;
             min-height: 100vh; padding: 40px 20px; text-align: center;
@@ -52,25 +64,44 @@
             max-width: 600px; width: 100%;
         }
         .msg-title { font-family: 'Dancing Script', cursive; font-size: 2.5rem; color: #ffd700; margin-bottom: 20px; }
-        .msg-text { font-size: 1.1rem; line-height: 2; color: #d1d1d1; }
+        .msg-text { font-size: 1.1rem; line-height: 2.2; color: #d1d1d1; }
 
-        /* --- SECTION 4: CAKE ANIMATION --- */
+        /* --- STEP 4: CAKE CUTTING --- */
         #step-cake {
             display: flex; flex-direction: column; justify-content: center; align-items: center;
             min-height: 100vh; padding: 20px; text-align: center;
         }
-        .cake-container {
-            position: relative; width: 180px; height: 200px; margin: 20px auto;
+        .cake-wrapper {
+            position: relative; width: 200px; height: 220px; margin: 20px auto;
         }
-        /* Pure CSS 3D Cake */
-        .cake-tier1 { width: 160px; height: 60px; background: radial-gradient(#ff9999, #ff4d4d); border-radius: 10px; position: absolute; bottom: 0; left: 10px; box-shadow: 0 5px 15px rgba(0,0,0,0.5); }
-        .cake-tier2 { width: 120px; height: 50px; background: radial-gradient(#ffccff, #ff66cc); border-radius: 10px; position: absolute; bottom: 60px; left: 30px; box-shadow: 0 5px 15px rgba(0,0,0,0.5); }
-        .cake-tier3 { width: 80px; height: 40px; background: radial-gradient(#ffffff, #ffcc00); border-radius: 10px; position: absolute; bottom: 110px; left: 50px; box-shadow: 0 5px 15px rgba(0,0,0,0.5); }
-        .candle { width: 8px; height: 30px; background: #fff; position: absolute; bottom: 150px; left: 86px; border-radius: 5px; }
-        .flame { width: 15px; height: 20px; background: radial-gradient(#ffd700, #ff4500); border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%; position: absolute; bottom: 175px; left: 82px; animation: flicker 0.5s infinite alternate; }
+        .cake-base {
+            position: absolute; bottom: 0; left: 10px; width: 180px; height: 80px;
+            background: #ff4d4d; border-radius: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            transition: all 1s ease-in-out; transform-origin: center;
+        }
+        .cake-icing {
+            position: absolute; top: -15px; left: -5px; width: 190px; height: 30px;
+            background: #fff; border-radius: 10px 10px 0 0; z-index: 2;
+        }
+        .cake-top {
+            position: absolute; bottom: 80px; left: 30px; width: 140px; height: 60px;
+            background: #ff66cc; border-radius: 10px; box-shadow: 0 5px 15px rgba(0,0,0,0.5);
+            transition: all 1s ease-in-out;
+        }
+        .candle { width: 8px; height: 30px; background: #fff; position: absolute; bottom: 140px; left: 96px; border-radius: 5px; z-index: 5; }
+        .flame { width: 15px; height: 20px; background: radial-gradient(#ffd700, #ff4500); border-radius: 50%; position: absolute; bottom: 165px; left: 92px; z-index: 5; animation: flicker 0.5s infinite alternate; }
         @keyframes flicker { 0% { transform: scale(0.8) rotate(-10deg); opacity: 0.9; } 100% { transform: scale(1.2) rotate(10deg); opacity: 1; } }
+        
+        #knife {
+            position: absolute; bottom: 20px; left: 50%; transform: translateX(-50%) rotate(45deg);
+            font-size: 2.5rem; transition: all 1s ease-in-out; z-index: 10; cursor: pointer; filter: drop-shadow(0 5px 15px rgba(255,255,255,0.3));
+        }
+        .cut-start .cake-base { transform: translateX(-40px) scale(0.9); border-right: 3px solid #cc0000; }
+        .cut-start .cake-top { transform: translateX(-30px) scale(0.9); }
+        .cut-start #knife { transform: translateX(-50%) rotate(0deg) translateY(-80px); }
+        .cut-start .candle, .cut-start .flame { display: none; }
 
-        /* --- SECTION 5: FINAL GALLERY --- */
+        /* --- STEP 5: GALLERY --- */
         #step-gallery {
             display: flex; flex-direction: column; justify-content: center; align-items: center;
             min-height: 100vh; padding: 20px;
@@ -81,7 +112,7 @@
         }
         .gallery-item { width: 100%; height: 250px; border-radius: 15px; overflow: hidden; border: 2px solid rgba(255,215,0,0.3); }
         .gallery-item img { width: 100%; height: 100%; object-fit: cover; }
-        .gallery-item:first-child { grid-column: span 2; height: 300px; } /* First photo big */
+        .gallery-item:first-child { grid-column: span 2; height: 300px; }
 
         /* --- BUTTONS --- */
         .btn-next {
@@ -91,76 +122,97 @@
             transition: 0.3s;
         }
         .btn-next:active { transform: scale(0.95); }
+        .btn-cut {
+            background: linear-gradient(135deg, #00d2ff, #3a7bd5); color: #fff;
+            box-shadow: 0 5px 20px rgba(0, 210, 255, 0.4);
+        }
 
         @media (max-width: 480px) {
             .slideshow-container { height: 350px; }
             .gallery-item { height: 150px; }
             .gallery-item:first-child { height: 200px; }
             .msg-text { font-size: 0.95rem; }
+            .timer-display { font-size: 2rem; }
         }
     </style>
 </head>
 <body>
     <div class="bg-layer"></div>
     
-    <!-- MUSIC (Hidden, starts automatically) -->
     <audio id="bgMusic" loop>
         <source src="birthday-music.mp3" type="audio/mpeg">
     </audio>
 
-    <!-- STEP 1: WELCOME & COUNTDOWN -->
+    <!-- STEP 1: WELCOME & REAL COUNTDOWN -->
     <section id="step-welcome">
-        <div class="logo-text">✨ A Special Gift For You ✨</div>
-        <div class="countdown-box">
-            <div>Duniya ka sabse best surprise khulne wala hai...</div>
-            <div class="timer-display" id="timer">45</div>
-            <div>Seconds left...</div>
+        <div class="logo-text">✨ Birthday Wish Card ✨</div>
+        
+        <div class="age-box">
+            <p>
+                🎂 20 July 2010 ko duniya mein aayi...<br>
+                Aur aaj <span class="age-highlight" id="ageDisplay">Calculating...</span> ki ho gayi!<br>
+                <span style="font-size: 0.8rem; color: #888;">(20 July 2026 ko 12:00 AM pe ye card khulega)</span>
+            </p>
         </div>
-        <button class="btn-skip" onclick="skipToSlideshow()">Agar wait nahi karna, to yahan click karo ➜</button>
+
+        <div class="countdown-box">
+            <div>Card khulne mein baki hai:</div>
+            <div class="timer-display">
+                <div><span id="hours">00</span><span class="timer-unit">Hrs</span></div>
+                <div><span id="minutes">00</span><span class="timer-unit">Min</span></div>
+                <div><span id="seconds">00</span><span class="timer-unit">Sec</span></div>
+            </div>
+        </div>
+        
+        <button class="btn-skip" onclick="skipToSlideshow()">Abhi dekhna hai? Click karo ➜</button>
     </section>
 
     <!-- STEP 2: SLIDESHOW -->
     <section id="step-slideshow" class="hidden">
         <h2 style="font-family: 'Dancing Script', cursive; font-size: 2rem; color:#ffd700; margin-bottom: 15px;">Moments with You 💫</h2>
         <div class="slideshow-container" id="slideshow">
-            <!-- 5 Photos automatically rotate (Fixed names to match your phone) -->
             <img src="image1.jpg" class="slide-img active" alt="Photo 1">
             <img src="image2.jpg" class="slide-img" alt="Photo 2">
             <img src="image3.jpg" class="slide-img" alt="Photo 3">
             <img src="image4.jpg" class="slide-img" alt="Photo 4">
             <img src="image5.jpg" class="slide-img" alt="Photo 5">
         </div>
-        <button class="btn-next" onclick="goToMessage()">Dekh liya? Agla step ➜</button>
+        
+        <div class="photo-note">
+            📸 Maine tujhse photos maange the, tune nahi diye... isliye maine apni collection se ye 5 photos rakh diye hain. <br> <span style="color:#ffd700;">(Saare photos vertical set kar diye hain)</span>
+        </div>
+
+        <button class="btn-next" onclick="goToMessage()">Agla step ➜</button>
     </section>
 
     <!-- STEP 3: BIRTHDAY MESSAGE -->
     <section id="step-message" class="hidden">
         <div class="message-card">
-            <div class="msg-title">💌 My Message For You 💌</div>
+            <div class="msg-title">💌 A Little Note 💌</div>
             <div class="msg-text">
                 "Gungun, aaj tera din hai. <br><br>
                 Tu jaanti hai, main kya chahta hoon? <br>
                 Main chahta hoon ki tu hamesha aise hi haste rahe. <br>
                 Teri har khushi sachchi ho, tera har din sukoon se bhara ho. <br>
                 Tu apni shart pe jeeye, aur kabhi apni khushiyan na bhoolay. <br><br>
-                💛 Happy Birthday, meri pyari Gungun! 💛"
+                💛 Happiest Birthday, Gungun! 💛"
             </div>
-            <button class="btn-next" onclick="goToCake()">Ab Cake dekhne ka time hai ➜</button>
+            <button class="btn-next" onclick="goToCake()">Ab Cake kaatne ka time hai ➜</button>
         </div>
     </section>
 
-    <!-- STEP 4: CAKE ANIMATION -->
+    <!-- STEP 4: CAKE CUTTING -->
     <section id="step-cake" class="hidden">
         <h2 style="font-family: 'Dancing Script', cursive; font-size: 2.5rem; color:#ffd700;">🎂 Cut The Cake! 🎂</h2>
-        <div class="cake-container">
-            <div class="cake-tier3"></div>
-            <div class="cake-tier2"></div>
-            <div class="cake-tier1"></div>
-            <div class="candle"></div>
-            <div class="flame"></div>
+        <div class="cake-wrapper" id="cakeWrapper">
+            <div class="cake-top"></div>
+            <div class="cake-base"><div class="cake-icing"></div></div>
+            <div class="candle"></div><div class="flame"></div>
+            <div id="knife">🔪</div>
         </div>
-        <p style="color: #d1d1d1; margin-top: 10px;">(Animation automatically chal raha hai)</p>
-        <button class="btn-next" onclick="goToGallery()">Final surprise dekhna hai? ➜</button>
+        <p style="color: #d1d1d1; margin-top: 10px; font-size: 0.9rem;">Neeche button dabao aur cake kaat lo!</p>
+        <button class="btn-next btn-cut" onclick="cutTheCake()">✂️ Abhi Kaato!</button>
+        <button class="btn-next hidden" id="nextAfterCake" onclick="goToGallery()">Cake kat gaya! Agla step ➜</button>
     </section>
 
     <!-- STEP 5: FINAL GALLERY -->
@@ -173,53 +225,89 @@
             <div class="gallery-item"><img src="image4.jpg" alt="Photo 4"></div>
             <div class="gallery-item"><img src="image5.jpg" alt="Photo 5"></div>
         </div>
-        <div style="margin-top: 30px; font-family: 'Dancing Script', cursive; font-size: 1.5rem; color:#ffd700;">
-            Happy Birthday Gungun! Love You ❤️
+        <div style="margin-top: 30px; font-family: 'Dancing Script', cursive; font-size: 1.5rem; color:#ffd700; text-align: center;">
+            Happy Birthday Gungun ✨
         </div>
     </section>
 
     <script>
-        // --- VARIABLES ---
         let currentSlide = 0;
         const slides = document.querySelectorAll('.slide-img');
         const audio = document.getElementById('bgMusic');
 
-        // --- AUTO PLAY MUSIC ON FIRST CLICK/LOAD ---
         document.addEventListener('DOMContentLoaded', () => {
             audio.play().catch(() => {
                 document.body.addEventListener('click', () => audio.play(), { once: true });
             });
+            calculateAgeAndTimer();
         });
 
-        // --- 1. COUNTDOWN LOGIC (45 SEC) ---
-        let timeLeft = 45;
-        const timerDisplay = document.getElementById('timer');
-        const countdown = setInterval(() => {
-            timeLeft--;
-            timerDisplay.innerText = timeLeft;
-            if (timeLeft <= 0) {
-                clearInterval(countdown);
-                skipToSlideshow();
-            }
-        }, 1000);
+        // --- REAL COUNTDOWN & AGE CALCULATOR ---
+        function calculateAgeAndTimer() {
+            const birthday = new Date("2010-07-20T00:00:00");
+            const targetDate = new Date("2026-07-20T00:00:00");
+            const now = new Date();
 
+            // 1. Calculate Age (Precise)
+            let years = now.getFullYear() - birthday.getFullYear();
+            let months = now.getMonth() - birthday.getMonth();
+            let days = now.getDate() - birthday.getDate();
+
+            if (days < 0) {
+                months--;
+                const lastMonth = new Date(now.getFullYear(), now.getMonth(), 0);
+                days += lastMonth.getDate();
+            }
+            if (months < 0) {
+                years--;
+                months += 12;
+            }
+
+            // Rough Weeks & Hours calculation
+            const diffMs = now - birthday;
+            const totalDays = Math.floor(diffMs / (1000 * 60 * 60 * 24));
+            const weeks = Math.floor(totalDays / 7);
+            const totalHours = Math.floor(diffMs / (1000 * 60 * 60));
+
+            document.getElementById('ageDisplay').innerHTML = 
+                `<b>${years} Years</b>, ${months} Months, ${days} Days <br> (${weeks} Weeks, ${totalHours} Hours)`;
+
+            // 2. Timer to 20 July 2026, 12:00 AM
+            const diffToTarget = targetDate - now;
+
+            if (diffToTarget <= 0) {
+                // If it's already 20th July or past it, show the card
+                document.getElementById('timer').innerHTML = "🎉 Happy Birthday! Card khul gaya!";
+                setTimeout(skipToSlideshow, 2000);
+                return;
+            }
+
+            const h = Math.floor((diffToTarget / (1000 * 60 * 60)) % 24);
+            const m = Math.floor((diffToTarget / (1000 * 60)) % 60);
+            const s = Math.floor((diffToTarget / 1000) % 60);
+
+            document.getElementById('hours').innerText = h.toString().padStart(2, '0');
+            document.getElementById('minutes').innerText = m.toString().padStart(2, '0');
+            document.getElementById('seconds').innerText = s.toString().padStart(2, '0');
+
+            setTimeout(calculateAgeAndTimer, 1000);
+        }
+
+        // --- NAVIGATION ---
         function skipToSlideshow() {
-            clearInterval(countdown);
             document.getElementById('step-welcome').classList.add('hidden');
             document.getElementById('step-slideshow').classList.remove('hidden');
             startSlideshow();
         }
 
-        // --- 2. SLIDESHOW LOGIC ---
         function startSlideshow() {
             setInterval(() => {
                 slides[currentSlide].classList.remove('active');
                 currentSlide = (currentSlide + 1) % slides.length;
                 slides[currentSlide].classList.add('active');
-            }, 3000); // Har 3 second mein photo badlega
+            }, 3000);
         }
 
-        // --- STEP NAVIGATION FUNCTIONS ---
         function goToMessage() {
             document.getElementById('step-slideshow').classList.add('hidden');
             document.getElementById('step-message').classList.remove('hidden');
@@ -230,10 +318,15 @@
             document.getElementById('step-cake').classList.remove('hidden');
         }
 
+        function cutTheCake() {
+            document.getElementById('cakeWrapper').classList.add('cut-start');
+            document.querySelector('.btn-cut').classList.add('hidden');
+            document.getElementById('nextAfterCake').classList.remove('hidden');
+        }
+
         function goToGallery() {
             document.getElementById('step-cake').classList.add('hidden');
             document.getElementById('step-gallery').classList.remove('hidden');
-            // Scroll to top so user sees full gallery
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
     </script>
