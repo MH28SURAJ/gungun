@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+    <title>Message For Gungun</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { 
+            font-family: 'Poppins', sans-serif; 
+            min-height: 100vh; 
+            display: flex; 
+            justify-content: center; 
+            align-items: center; 
+            overflow-y: auto; 
+            padding: 20px 0;
+            background: #0b0719; 
+        }
+        
+        /* Background */
+        .bg-layer-1, .bg-layer-2 {
+            position: fixed; top: -50%; left: -50%; width: 200%; height: 200%;
+            z-index: -3; background: radial-gradient(circle at 50% 50%, #1b1136, #0b0719);
+        }
+        .bg-layer-2 {
+            background: radial-gradient(circle at 80% 80%, rgba(100, 40, 180, 0.3), transparent 50%),
+                        radial-gradient(circle at 20% 20%, rgba(255, 150, 200, 0.2), transparent 50%);
+            animation: nebulaFloat 20s ease-in-out infinite alternate;
+            z-index: -2;
+        }
+        @keyframes nebulaFloat {
+            0% { transform: translate(0, 0) rotate(0deg) scale(1); }
+            100% { transform: translate(10%, -10%) rotate(10deg) scale(1.2); }
+        }
+
+        /* Particles */
+        .particles { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; pointer-events: none; }
+        .particle {
+            position: absolute; bottom: -100px;
+            background: rgba(255, 255, 255, 0.6); clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%);
+            animation: riseLinear linear infinite;
+            box-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
+        }
+        @keyframes riseLinear {
+            0% { transform: translateY(0) rotate(0deg) scale(0); opacity: 0; }
+            20% { opacity: 0.8; transform: translateY(-20vh) rotate(45deg) scale(1); }
+            80% { opacity: 0.8; }
+            100% { transform: translateY(-120vh) rotate(360deg) scale(0.5); opacity: 0; }
+        }
+        
+        /* Premium 3D Card */
+        .card {
+            background: linear-gradient(145deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.02));
+            backdrop-filter: blur(25px);
+            -webkit-backdrop-filter: blur(25px);
+            border-radius: 45px;
+            padding: 3rem 2.5rem 2rem 2.5rem;
+            max-width: 600px;
+            width: 92%;
+            margin: 10px auto;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            box-shadow: 0 40px 80px rgba(0, 0, 0, 0.8), 
+                        0 0 40px rgba(138, 43, 226, 0.2),
+                        inset 0 1px 0 rgba(255,255,255,0.3);
+            text-align: center;
+            position: relative;
+            z-index: 10;
+            overflow: hidden;
+        }
+        .card::before {
+            content: ''; position: absolute; top: 0; left: -100%; width: 50%; height: 100%;
+            background: linear-gradient(to right, transparent, rgba(255,255,255,0.1), transparent);
+            transform: skewX(-25deg);
+            animation: shimmerGlide 6s ease-in-out infinite;
+            pointer-events: none; z-index: 1;
+        }
+        @keyframes shimmerGlide {
+            0% { left: -100%; }
+            50%, 100% { left: 200%; }
+        }
+
+        /* MESSAGE BOX */
+        .message-box {
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 25px;
+            padding: 25px 20px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            text-align: center;
+            color: #ffffff;
+            font-size: 1.05rem;
+            line-height: 1.8;
+        }
+        .message-box h2 {
+            font-family: 'Dancing Script', cursive;
+            font-size: 2.2rem;
+            color: #ffd700;
+            margin-bottom: 15px;
+        }
+
+        /* BUTTONS */
+        .btn-group {
+            margin-top: 25px;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            width: 100%;
+        }
+        
+        .action-btn {
+            padding: 15px 20px;
+            border-radius: 40px;
+            border: none;
+            font-size: 1.05rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            width: 100%;
+            text-decoration: none;
+            display: inline-block;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.4);
+        }
+        
+        /* Song Button (Gold) */
+        .btn-song {
+            background: linear-gradient(135deg, #ffd700, #f0a500);
+            color: #000;
+        }
+        .btn-song.playing { box-shadow: 0 0 30px rgba(255, 215, 0, 0.6); transform: scale(1.02); }
+        .btn-song:active { transform: scale(0.95); }
+        
+        /* Redirect Button (Purple/Neon) */
+        .btn-redirect {
+            background: linear-gradient(135deg, #8a2be2, #4b0082);
+            color: #fff;
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+        .btn-redirect:active { transform: scale(0.95); }
+
+        @media (max-width: 480px) {
+            .card { padding: 2rem 1.2rem 1.5rem 1.2rem; width: 95%; }
+        }
+    </style>
+</head>
+<body>
+    <div class="bg-layer-1"></div>
+    <div class="bg-layer-2"></div>
+    <div class="particles" id="particles-container"></div>
+    
+    <div class="card">
+        <div class="message-box">
+            <h2>💌 A Little Note For You 💌</h2>
+            <p>
+                "Gungun, I just wanted to say something before the main wish.<br><br>
+                No matter what, always remember that you are stronger than you think. 
+                Keep smiling, keep shining, and never let anyone dim your light. 
+                You deserve all the happiness in the world. 🫂✨<br><br>
+                This is just a small start. Now, go ahead and see the Birthday Card! 🎉"
+            </p>
+        </div>
+
+        <!-- BUTTONS GROUP -->
+        <div class="btn-group">
+            <!-- MUSIC BUTTON -->
+            <button class="action-btn btn-song" id="playSongBtn" onclick="toggleSong()">🎵 Tap to Play Song</button>
+            
+            <!-- REDIRECT BUTTON (To birthday.html) -->
+            <a href="birthday.html" class="action-btn btn-redirect">🎂 Open Birthday Card ➜</a>
+        </div>
+    </div>
+
+    <!-- Hidden Audio Tag -->
+    <audio id="bgMusic" loop>
+        <source src="birthday-music.mp3" type="audio/mpeg">
+    </audio>
+
+    <script>
+        // --- MUSIC TOGGLE JS ---
+        let isPlaying = false;
+        const audio = document.getElementById("bgMusic");
+        const songBtn = document.getElementById("playSongBtn");
+
+        function toggleSong() {
+            if (isPlaying) {
+                audio.pause();
+                songBtn.innerHTML = "🎵 Tap to Play Song";
+                songBtn.classList.remove('playing');
+                isPlaying = false;
+            } else {
+                audio.play().then(() => {
+                    songBtn.innerHTML = "🔊 Song Playing...";
+                    songBtn.classList.add('playing');
+                    isPlaying = true;
+                }).catch((e) => {
+                    alert("Bhai, 'birthday-music.mp3' file folder mein nahi hai!");
+                });
+            }
+        }
+
+        // --- PARTICLES JS ---
+        document.addEventListener("DOMContentLoaded", function() {
+            const container = document.getElementById('particles-container');
+            function createParticle() {
+                const p = document.createElement('div');
+                p.classList.add('particle');
+                const size = Math.random() * 12 + 6;
+                p.style.width = `${size}px`; p.style.height = `${size}px`;
+                p.style.left = `${Math.random() * 100}vw`;
+                p.style.animationDuration = `${Math.random() * 15 + 18}s`;
+                p.style.animationDelay = `${Math.random() * 10}s`;
+                container.appendChild(p);
+                setTimeout(() => { p.remove(); }, 30000);
+            }
+            setInterval(createParticle, 300);
+            for(let i=0; i<15; i++) { setTimeout(createParticle, i * 300); }
+        });
+    </script>
+</body>
+</html>

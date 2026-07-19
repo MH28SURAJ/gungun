@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+    <title>Happy Birthday Gungun</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { 
+            font-family: 'Poppins', sans-serif; 
+            min-height: 100vh; 
+            display: flex; 
+            justify-content: center; 
+            align-items: center; 
+            overflow-y: auto; 
+            padding: 20px 0;
+            background: #0b0719; 
+        }
+        .bg-layer-1, .bg-layer-2 {
+            position: fixed; top: -50%; left: -50%; width: 200%; height: 200%;
+            z-index: -3; background: radial-gradient(circle at 50% 50%, #1b1136, #0b0719);
+        }
+        .bg-layer-2 {
+            background: radial-gradient(circle at 80% 80%, rgba(100, 40, 180, 0.3), transparent 50%),
+                        radial-gradient(circle at 20% 20%, rgba(255, 150, 200, 0.2), transparent 50%);
+            animation: nebulaFloat 20s ease-in-out infinite alternate;
+            z-index: -2;
+        }
+        @keyframes nebulaFloat {
+            0% { transform: translate(0, 0) rotate(0deg) scale(1); }
+            100% { transform: translate(10%, -10%) rotate(10deg) scale(1.2); }
+        }
+        .particles { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; pointer-events: none; }
+        .particle {
+            position: absolute; bottom: -100px;
+            background: rgba(255, 255, 255, 0.6); clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%);
+            animation: riseLinear linear infinite;
+            box-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
+        }
+        @keyframes riseLinear {
+            0% { transform: translateY(0) rotate(0deg) scale(0); opacity: 0; }
+            20% { opacity: 0.8; transform: translateY(-20vh) rotate(45deg) scale(1); }
+            80% { opacity: 0.8; }
+            100% { transform: translateY(-120vh) rotate(360deg) scale(0.5); opacity: 0; }
+        }
+        .card {
+            background: linear-gradient(145deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.02));
+            backdrop-filter: blur(25px);
+            -webkit-backdrop-filter: blur(25px);
+            border-radius: 45px;
+            padding: 3rem 2.5rem 2rem 2.5rem;
+            max-width: 600px; width: 92%; margin: 10px auto;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            box-shadow: 0 40px 80px rgba(0, 0, 0, 0.8), 0 0 40px rgba(138, 43, 226, 0.2), inset 0 1px 0 rgba(255,255,255,0.3);
+            text-align: center; position: relative; z-index: 10; overflow: hidden;
+        }
+        .card::before {
+            content: ''; position: absolute; top: 0; left: -100%; width: 50%; height: 100%;
+            background: linear-gradient(to right, transparent, rgba(255,255,255,0.1), transparent);
+            transform: skewX(-25deg); animation: shimmerGlide 6s ease-in-out infinite; pointer-events: none; z-index: 1;
+        }
+        @keyframes shimmerGlide { 0% { left: -100%; } 50%, 100% { left: 200%; } }
+
+        .bday-layout { display: flex; flex-direction: column; align-items: center; gap: 20px; }
+        .bday-image-wrapper { width: 180px; height: 180px; position: relative; }
+        .bday-image-container { width: 100%; height: 100%; border-radius: 50%; overflow: hidden; background: #1b1136; border: 3px solid rgba(255, 255, 255, 0.3); display: flex; align-items: center; justify-content: center; font-size: 4.5rem; box-shadow: 0 0 50px rgba(138, 43, 226, 0.4); position: relative; z-index: 2; }
+        .bday-image-container img { width: 100%; height: 100%; object-fit: cover; display: block; }
+        .bday-image-wrapper::before {
+            content: ''; position: absolute; top: -8px; left: -8px; width: calc(100% + 16px); height: calc(100% + 16px);
+            border-radius: 50%; background: conic-gradient(from 0deg, transparent, #ff99cc, #8a2be2, transparent 60%, transparent);
+            animation: spin3D 4s linear infinite; z-index: 1; filter: blur(2px);
+        }
+        @keyframes spin3D { 100% { transform: rotate(360deg); } }
+        .bday-heading { font-family: 'Dancing Script', cursive; font-size: 2.6rem; background: linear-gradient(135deg, #ffd700, #ffb347, #ffd700); -webkit-background-clip: text; background-clip: text; color: transparent; text-shadow: 0 0 40px rgba(255, 215, 0, 0.3); line-height: 1.4; }
+        .bday-content { text-align: center; background: linear-gradient(180deg, #ffffff 20%, #d1d1d1 100%); -webkit-background-clip: text; background-clip: text; color: transparent; font-weight: 500; font-size: 1.1rem; line-height: 2.8; padding: 5px 10px; letter-spacing: 0.5px; text-shadow: 0 2px 15px rgba(0,0,0,0.4); }
+        .bday-verse { display: block; width: 100%; max-width: 100%; }
+        .bday-highlight-box { display: inline-block; width: 100%; margin-top: 15px; padding: 15px 10px; background: rgba(255, 215, 0, 0.08); border: 1px solid rgba(255, 215, 0, 0.3); border-radius: 15px; box-shadow: inset 0 0 20px rgba(255, 215, 0, 0.1), 0 0 30px rgba(255, 215, 0, 0.2); text-align: center; color: #ffd700; font-weight: 600; font-size: 1.1rem; text-shadow: 0 0 20px rgba(255, 215, 0, 0.3); }
+        .bday-signature { color: #d4d0e8; font-size: 1.2rem; letter-spacing: 1px; text-align: right; font-style: italic; width: 100%; margin-top: 10px; }
+
+        @media (max-width: 480px) {
+            .card { padding: 2rem 1.2rem 1.5rem 1.2rem; width: 95%; }
+            .bday-image-wrapper { width: 140px; height: 140px; }
+            .bday-image-container { font-size: 3rem; }
+            .bday-heading { font-size: 2.2rem; }
+            .bday-content { font-size: 0.95rem; line-height: 2.4; }
+            .bday-highlight-box { font-size: 0.95rem; padding: 10px 5px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="bg-layer-1"></div>
+    <div class="bg-layer-2"></div>
+    <div class="particles" id="particles-container"></div>
+    
+    <div class="card">
+        <div class="bday-layout">
+            <div class="bday-image-wrapper">
+                <div class="bday-image-container">
+                    <img src="your-image.jpg" alt="✨" onerror="this.style.display='none'; this.parentElement.innerText='✨';">
+                </div>
+            </div>
+            <div class="bday-heading">✨ Wishing Yuhh Happiest Birthday Gungun 🎉</div>
+            
+            <div class="bday-content">
+                <span class="bday-verse">Tujhe Bas Yahi Dua Hai Bhai —</span>
+                <span class="bday-verse">Tu Zindagi Mein Itna Aage Badhe,</span>
+                <span class="bday-verse">Ki Pichhe Mudkar Dekhne Ki Zaroorat Na Pade.</span>
+                <span class="bday-verse">Tujhe Jo Bhi Chahiye, Wo Mile.</span>
+                <span class="bday-verse">Tujhe Jo Bhi Sukoon Chahiye, Wo Ho.</span>
+                <span class="bday-verse">Tu Apne Tarike Se Jeeye, Apni Shart Pe.</span>
+                <span class="bday-verse">Teri Har Khushi Sachhi Ho,</span>
+                <span class="bday-verse">Aur Tera Har Din Tera Ho.</span>
+                <span class="bday-verse">Bas Itna Hai Kehna —</span>
+                <span class="bday-verse">Tu Kabhi Ruke Nahi, Kabhi Thake Nahi.</span>
+                <span class="bday-verse">Aur Kabhi Kisi Ke Liye Apni Khushiyan Na Bhoolay.</span>
+                <div class="bday-highlight-box">Sach Mein, Bahut Bahut Happy Birthday Gungun ☺️✨</div>
+            </div>
+            <div class="bday-signature">~jagguuhhhh</div>
+        </div>
+    </div>
+
+    <!-- 🎵 MUSIC CODE (Hidden Auto-Play on this page as well) -->
+    <audio id="bgMusic" loop>
+        <source src="birthday-music.mp3" type="audio/mpeg">
+    </audio>
+
+    <script>
+        // Auto-play the song when this page loads (since user already clicked "Open Card")
+        document.addEventListener("DOMContentLoaded", function() {
+            const audio = document.getElementById("bgMusic");
+            // Try to play automatically
+            audio.play().catch(() => {
+                // If browser blocks, play on first click anywhere on this page
+                const playOnClick = () => {
+                    audio.play();
+                    document.body.removeEventListener('click', playOnClick);
+                };
+                document.body.addEventListener('click', playOnClick);
+            });
+
+            // Particles Script
+            const container = document.getElementById('particles-container');
+            function createParticle() {
+                const p = document.createElement('div'); p.classList.add('particle');
+                const size = Math.random() * 12 + 6;
+                p.style.width = `${size}px`; p.style.height = `${size}px`;
+                p.style.left = `${Math.random() * 100}vw`;
+                p.style.animationDuration = `${Math.random() * 15 + 18}s`;
+                p.style.animationDelay = `${Math.random() * 10}s`;
+                container.appendChild(p);
+                setTimeout(() => { p.remove(); }, 30000);
+            }
+            setInterval(createParticle, 300);
+            for(let i=0; i<15; i++) { setTimeout(createParticle, i * 300); }
+        });
+    </script>
+</body>
+</html>
