@@ -10,6 +10,8 @@
         body { font-family: 'Poppins', sans-serif; background: #0b0719; color: #fff; overflow-x: hidden; overflow-y: auto; }
         .hidden { display: none !important; }
         button { cursor: pointer; border: none; outline: none; }
+        .fade-in { animation: fadeIn 1.5s ease-in-out; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
 
         .bg-layer { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; background: radial-gradient(circle at 50% 50%, #1b1136, #0b0719); }
 
@@ -63,7 +65,7 @@
             100% { transform: translateY(110vh) rotate(720deg); opacity: 0; }
         }
 
-        /* --- STEP 2: SLIDESHOW (4 Photos) --- */
+        /* --- STEP 2: SLIDESHOW --- */
         #step-slideshow {
             display: flex; flex-direction: column; justify-content: center; align-items: center;
             min-height: 100vh; padding: 20px;
@@ -111,26 +113,40 @@
         }
         .cut-animation-active .cut-text { opacity: 1; transform: scale(1.2); }
         
-        /* --- STEP 5: GALLERY (5 Photos Full Screen Stretch) --- */
+        /* --- STEP 5: GALLERY (SINGLE IMAGE WITH ZOOM) --- */
         #step-gallery {
             display: flex; flex-direction: column; justify-content: center; align-items: center;
             min-height: 100vh; padding: 20px;
         }
-        .gallery-full {
-            display: flex; flex-direction: column; gap: 20px;
-            max-width: 400px; width: 100%;
+        .gallery-single {
+            width: 100%; max-width: 400px; height: 600px;
+            border-radius: 20px; overflow: hidden; 
+            border: 3px solid rgba(255,215,0,0.4);
+            box-shadow: 0 20px 50px rgba(0,0,0,0.8);
+            position: relative;
         }
-        .gallery-full-item { width: 100%; height: 450px; border-radius: 15px; overflow: hidden; border: 2px solid rgba(255,215,0,0.3); }
-        .gallery-full-item img { width: 100%; height: 100%; object-fit: cover; }
+        .gallery-single img {
+            width: 100%; height: 100%; object-fit: cover;
+            animation: slowZoom 20s infinite alternate ease-in-out;
+        }
+        @keyframes slowZoom {
+            0% { transform: scale(1); }
+            100% { transform: scale(1.1); }
+        }
 
         /* --- BUTTONS --- */
         .btn-next {
             margin-top: 25px; padding: 15px 40px; border-radius: 40px;
             background: linear-gradient(135deg, #ffd700, #f0a500); color: #000;
             font-weight: bold; font-size: 1.1rem; box-shadow: 0 5px 20px rgba(255,215,0,0.3);
-            transition: 0.3s;
+            transition: 0.3s; position: relative;
         }
         .btn-next:active { transform: scale(0.95); }
+        .btn-next .countdown-badge {
+            position: absolute; top: -10px; right: -10px;
+            background: #ff4444; color: #fff; font-size: 0.7rem; padding: 4px 8px;
+            border-radius: 20px; font-weight: normal;
+        }
         .btn-cut {
             background: linear-gradient(135deg, #00d2ff, #3a7bd5); color: #fff;
             box-shadow: 0 5px 20px rgba(0, 210, 255, 0.4);
@@ -138,7 +154,7 @@
 
         @media (max-width: 480px) {
             .slideshow-container { height: 350px; }
-            .gallery-full-item { height: 320px; }
+            .gallery-single { height: 450px; }
             .msg-text { font-size: 0.95rem; }
             .timer-display { font-size: 2rem; }
         }
@@ -155,7 +171,7 @@
     <div id="passwordOverlay">
         <div class="password-box">
             <h3 style="color:#ffd700; font-family: 'Dancing Script', cursive;">🔒 Secret Code</h3>
-            <p style="color:#d1d1d1; font-size: 0.9rem; margin-bottom: 5px;">Code daalo aur card kholo:</p>
+            <p style="color:#d1d1d1; font-size: 0.9rem; margin-bottom: 5px;">Password daalo ya 12:00 bajne ka wait karo!</p>
             <input type="password" id="passInput" placeholder="Enter Password" maxlength="10">
             <button onclick="checkPassword()">Open ✨</button>
             <p id="passError" style="color: #ff4444; font-size: 0.8rem; margin-top: 10px; display: none;">Wrong Code! Try again.</p>
@@ -194,14 +210,16 @@
             <img src="image2.jpg" class="slide-img" alt="Photo 2">
             <img src="image3.jpg" class="slide-img" alt="Photo 3">
             <img src="image4.jpg" class="slide-img" alt="Photo 4">
-            <!-- Image 5 removed from here -->
         </div>
         
         <div class="photo-note">
             📸 Maine tujhse photos maange the, tune nahi diye... isliye maine apni collection se ye 4 photos rakh diye hain.
         </div>
 
-        <button class="btn-next" onclick="goToMessage()">Agla step ➜</button>
+        <button class="btn-next" id="btnSlideToMsg" onclick="goToMessage()">
+            Agla step ➜
+            <span class="countdown-badge" id="badgeSlide">30s</span>
+        </button>
     </section>
 
     <!-- STEP 3: BIRTHDAY MESSAGE -->
@@ -214,7 +232,10 @@
                 <p>Aur Haan, Aaj Birthday Hai To Tension Bilkul Mat Lena, Bas Achhe Se Celebrate Karna.</p>
                 <p style="text-align: center; color:#ffd700; margin-top:10px;">Take Care, Aur Once Again Happy Birthday Gungun ! 🥳🎉</p>
             </div>
-            <button class="btn-next" onclick="goToCake()">Ab Cake kaatne ka time hai ➜</button>
+            <button class="btn-next" id="btnMsgToCake" onclick="goToCake()">
+                Ab Cake kaatne ka time hai ➜
+                <span class="countdown-badge" id="badgeMsg">30s</span>
+            </button>
         </div>
     </section>
 
@@ -222,7 +243,6 @@
     <section id="step-cake" class="hidden">
         <h2 style="font-family: 'Dancing Script', cursive; font-size: 2.5rem; color:#ffd700;">🎂 Cut The Cake! 🎂</h2>
         <div id="cakeWrapper" style="display: flex; flex-direction: column; align-items: center;">
-            <!-- Keep a REAL Cake photo named 'cake.jpg' in your folder -->
             <img src="cake.jpg" alt="Birthday Cake" class="cake-real-img" id="cakeImg">
             <div class="cut-text">✂️ Kaat Diya! 🎉</div>
         </div>
@@ -231,17 +251,13 @@
         <button class="btn-next hidden" id="nextAfterCake" onclick="goToGallery()">Cake kat gaya! Agla step ➜</button>
     </section>
 
-    <!-- STEP 5: FINAL GALLERY (5 Photos Full Screen) -->
+    <!-- STEP 5: FINAL GALLERY (Only Image 5) -->
     <section id="step-gallery" class="hidden">
-        <h2 style="font-family: 'Dancing Script', cursive; font-size: 2.5rem; color:#ffd700; text-align: center;">✨ Moments ✨</h2>
-        <div class="gallery-full">
-            <div class="gallery-full-item"><img src="image1.jpg" alt="Photo 1"></div>
-            <div class="gallery-full-item"><img src="image2.jpg" alt="Photo 2"></div>
-            <div class="gallery-full-item"><img src="image3.jpg" alt="Photo 3"></div>
-            <div class="gallery-full-item"><img src="image4.jpg" alt="Photo 4"></div>
-            <div class="gallery-full-item"><img src="image5.jpg" alt="Photo 5"></div>
+        <h2 style="font-family: 'Dancing Script', cursive; font-size: 2.5rem; color:#ffd700; text-align: center;">✨ Just For You ✨</h2>
+        <div class="gallery-single fade-in">
+            <img src="image5.jpg" alt="Final Memory">
         </div>
-        <div style="margin-top: 30px; font-family: 'Dancing Script', cursive; font-size: 1.5rem; color:#ffd700; text-align: center;">
+        <div style="margin-top: 30px; font-family: 'Dancing Script', cursive; font-size: 1.8rem; color:#ffd700; text-align: center;">
             Happy Birthday Gungun ✨
         </div>
     </section>
@@ -252,14 +268,12 @@
         const audio = document.getElementById('bgMusic');
         let musicStarted = false;
 
-        // --- MUSIC FIX (Only starts once) ---
+        // --- MUSIC LOGIC (Starts ONLY when Slideshow starts) ---
         function startMusic() {
             if(!musicStarted) {
                 audio.play().then(() => { musicStarted = true; }).catch(() => {});
             }
         }
-        document.addEventListener('DOMContentLoaded', () => { startMusic(); });
-        document.addEventListener('click', () => { startMusic(); });
 
         // --- PASSWORD LOGIC ---
         function openPasswordPrompt() {
@@ -277,7 +291,6 @@
                 document.getElementById('passError').style.display = 'block';
             }
         }
-        // Allow Enter key to submit password
         document.getElementById('passInput').addEventListener('keypress', function(e) {
             if (e.key === 'Enter') checkPassword();
         });
@@ -331,7 +344,6 @@
         calculateAgeAndTimer();
 
         function triggerCelebrationAndOpen() {
-            // Confetti Animation
             const confettiContainer = document.createElement('div');
             confettiContainer.className = 'confetti-container';
             document.body.appendChild(confettiContainer);
@@ -353,11 +365,15 @@
             setTimeout(skipToSlideshow, 2000);
         }
 
-        // --- NAVIGATION ---
+        // --- NAVIGATION WITH 30 SECOND TIMERS ---
+        let slideTimer, msgTimer;
+
         function skipToSlideshow() {
             document.getElementById('step-welcome').classList.add('hidden');
             document.getElementById('step-slideshow').classList.remove('hidden');
+            startMusic(); // MUSIC STARTS HERE
             startSlideshow();
+            startSlideCountdown();
         }
 
         function startSlideshow() {
@@ -368,17 +384,50 @@
             }, 3000);
         }
 
+        // Auto-Action for Buttons
+        function startSlideCountdown() {
+            let time = 30;
+            const badge = document.getElementById('badgeSlide');
+            badge.innerText = time + "s";
+            clearInterval(slideTimer);
+            slideTimer = setInterval(() => {
+                time--;
+                badge.innerText = time + "s";
+                if(time <= 0) {
+                    clearInterval(slideTimer);
+                    goToMessage();
+                }
+            }, 1000);
+        }
+
         function goToMessage() {
+            clearInterval(slideTimer);
             document.getElementById('step-slideshow').classList.add('hidden');
             document.getElementById('step-message').classList.remove('hidden');
+            startMsgCountdown();
+        }
+
+        function startMsgCountdown() {
+            let time = 30;
+            const badge = document.getElementById('badgeMsg');
+            badge.innerText = time + "s";
+            clearInterval(msgTimer);
+            msgTimer = setInterval(() => {
+                time--;
+                badge.innerText = time + "s";
+                if(time <= 0) {
+                    clearInterval(msgTimer);
+                    goToCake();
+                }
+            }, 1000);
         }
 
         function goToCake() {
+            clearInterval(msgTimer);
             document.getElementById('step-message').classList.add('hidden');
             document.getElementById('step-cake').classList.remove('hidden');
         }
 
-        // --- NEW CAKE CUTTING LOGIC ---
         function cutTheCake() {
             document.getElementById('cakeWrapper').classList.add('cut-animation-active');
             document.getElementById('cutBtn').classList.add('hidden');
