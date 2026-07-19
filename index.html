@@ -113,25 +113,27 @@
         }
         .cut-animation-active .cut-text { opacity: 1; transform: scale(1.2); }
         
-        /* --- STEP 5: GALLERY (SINGLE IMAGE WITH ZOOM) --- */
+        /* --- STEP 5: GALLERY (SINGLE IMAGE FULL SCREEN) --- */
         #step-gallery {
             display: flex; flex-direction: column; justify-content: center; align-items: center;
             min-height: 100vh; padding: 20px;
         }
         .gallery-single {
-            width: 100%; max-width: 400px; height: 600px;
+            width: 100%; max-width: 400px; height: 80vh; /* Full Height View */
             border-radius: 20px; overflow: hidden; 
             border: 3px solid rgba(255,215,0,0.4);
             box-shadow: 0 20px 50px rgba(0,0,0,0.8);
             position: relative;
         }
         .gallery-single img {
-            width: 100%; height: 100%; object-fit: cover;
+            width: 100%; height: 100%; 
+            object-fit: contain; /* Ensures full photo shows without cropping */
+            background: #000; /* Black background for empty space */
             animation: slowZoom 20s infinite alternate ease-in-out;
         }
         @keyframes slowZoom {
             0% { transform: scale(1); }
-            100% { transform: scale(1.1); }
+            100% { transform: scale(1.05); }
         }
 
         /* --- BUTTONS --- */
@@ -152,9 +154,19 @@
             box-shadow: 0 5px 20px rgba(0, 210, 255, 0.4);
         }
 
+        /* --- TOAST NOTIFICATION --- */
+        #toastMessage {
+            position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%);
+            background: rgba(255, 68, 68, 0.9); color: #fff; padding: 12px 25px;
+            border-radius: 30px; font-size: 1rem; z-index: 99999;
+            display: none; box-shadow: 0 10px 30px rgba(255,0,0,0.3);
+            animation: slideUp 0.5s ease-in-out;
+        }
+        @keyframes slideUp { from { opacity: 0; transform: translateX(-50%) translateY(20px); } to { opacity: 1; transform: translateX(-50%) translateY(0); } }
+
         @media (max-width: 480px) {
             .slideshow-container { height: 350px; }
-            .gallery-single { height: 450px; }
+            .gallery-single { height: 60vh; }
             .msg-text { font-size: 0.95rem; }
             .timer-display { font-size: 2rem; }
         }
@@ -167,31 +179,34 @@
         <source src="birthday-music.mp3" type="audio/mpeg">
     </audio>
 
+    <!-- TOAST NOTIFICATION -->
+    <div id="toastMessage">⏳ 30 Seconds Wait Karo!</div>
+
     <!-- PASSWORD OVERLAY -->
     <div id="passwordOverlay">
         <div class="password-box">
             <h3 style="color:#ffd700; font-family: 'Dancing Script', cursive;">🔒 Secret Code</h3>
-            <p style="color:#d1d1d1; font-size: 0.9rem; margin-bottom: 5px;">Password daalo ya 12:00 bajne ka wait karo!</p>
+            <p style="color:#d1d1d1; font-size: 0.9rem; margin-bottom: 5px;">Password Daalo Ya 12:00 Bajne Ka Wait Karo!</p>
             <input type="password" id="passInput" placeholder="Enter Password" maxlength="10">
             <button onclick="checkPassword()">Open ✨</button>
-            <p id="passError" style="color: #ff4444; font-size: 0.8rem; margin-top: 10px; display: none;">Wrong Code! Try again.</p>
+            <p id="passError" style="color: #ff4444; font-size: 0.8rem; margin-top: 10px; display: none;">Password Tumhe 11:50pm Ko Milega 👽</p>
         </div>
     </div>
 
     <!-- STEP 1: WELCOME & REAL COUNTDOWN -->
     <section id="step-welcome">
-        <div class="logo-text">✨ Birthday Wish Card ✨</div>
+        <div class="logo-text">✨ Happy Birthday Wish Card ✨</div>
         
         <div class="age-box">
             <p>
-                🎂 20 July 2010 ko duniya mein aayi...<br>
-                Aur aaj <span class="age-highlight" id="ageDisplay">Calculating...</span> ki ho gayi!<br>
-                <span style="font-size: 0.8rem; color: #888;">(20 July 2026 ko 12:00 AM pe ye card khulega)</span>
+                🎂 20 July 2010 Ko Duniya Mein Aayi...<br>
+                Aur Aaj <span class="age-highlight" id="ageDisplay">Calculating...</span> Ki Ho Gayi!<br>
+                <span style="font-size: 0.8rem; color: #888;">(20 July 2026 Ko 12:00 AM Pe Ye Card Khulega)</span>
             </p>
         </div>
 
         <div class="countdown-box">
-            <div>Card khulne mein baki hai:</div>
+            <div>Card Khulne Mein Baki Hai:</div>
             <div class="timer-display">
                 <div><span id="hours">00</span><span class="timer-unit">Hrs</span></div>
                 <div><span id="minutes">00</span><span class="timer-unit">Min</span></div>
@@ -199,7 +214,7 @@
             </div>
         </div>
         
-        <button class="btn-skip" onclick="openPasswordPrompt()">Abhi dekhna hai? Click karo ➜</button>
+        <button class="btn-skip" onclick="openPasswordPrompt()">Abhi Dekhna Hai? Click Karo ➜</button>
     </section>
 
     <!-- STEP 2: SLIDESHOW (4 Photos) -->
@@ -213,11 +228,11 @@
         </div>
         
         <div class="photo-note">
-            📸 Maine tujhse photos maange the, tune nahi diye... isliye maine apni collection se ye 4 photos rakh diye hain.
+            📸 Maine Tumhe Us Din Photos Maange The, Diye Nahi 😒 Khair Jo Mere Collection Me The Wahi Rakh Diye.
         </div>
 
         <button class="btn-next" id="btnSlideToMsg" onclick="goToMessage()">
-            Agla step ➜
+            Agla Step ➜
             <span class="countdown-badge" id="badgeSlide">30s</span>
         </button>
     </section>
@@ -233,7 +248,7 @@
                 <p style="text-align: center; color:#ffd700; margin-top:10px;">Take Care, Aur Once Again Happy Birthday Gungun ! 🥳🎉</p>
             </div>
             <button class="btn-next" id="btnMsgToCake" onclick="goToCake()">
-                Ab Cake kaatne ka time hai ➜
+                Ab Cake Kaatne Ka Time Hai ➜
                 <span class="countdown-badge" id="badgeMsg">30s</span>
             </button>
         </div>
@@ -243,15 +258,16 @@
     <section id="step-cake" class="hidden">
         <h2 style="font-family: 'Dancing Script', cursive; font-size: 2.5rem; color:#ffd700;">🎂 Cut The Cake! 🎂</h2>
         <div id="cakeWrapper" style="display: flex; flex-direction: column; align-items: center;">
+            <!-- IMPORTANT: Upload 'cake.jpg' to your GitHub folder -->
             <img src="cake.jpg" alt="Birthday Cake" class="cake-real-img" id="cakeImg">
             <div class="cut-text">✂️ Kaat Diya! 🎉</div>
         </div>
-        <p style="color: #d1d1d1; margin-top: 10px; font-size: 0.9rem;">Neeche button dabao aur cake kaat lo!</p>
+        <p style="color: #d1d1d1; margin-top: 10px; font-size: 0.9rem;">Neeche Button Dabao Aur Cake Kaat Lo!</p>
         <button class="btn-next btn-cut" id="cutBtn" onclick="cutTheCake()">✂️ Abhi Kaato!</button>
-        <button class="btn-next hidden" id="nextAfterCake" onclick="goToGallery()">Cake kat gaya! Agla step ➜</button>
+        <button class="btn-next hidden" id="nextAfterCake" onclick="goToGallery()">Cake Kat Gaya! Agla Step ➜</button>
     </section>
 
-    <!-- STEP 5: FINAL GALLERY (Only Image 5) -->
+    <!-- STEP 5: FINAL GALLERY (Only Image 5 - Full Screen) -->
     <section id="step-gallery" class="hidden">
         <h2 style="font-family: 'Dancing Script', cursive; font-size: 2.5rem; color:#ffd700; text-align: center;">✨ Just For You ✨</h2>
         <div class="gallery-single fade-in">
@@ -267,6 +283,9 @@
         const slides = document.querySelectorAll('.slide-img');
         const audio = document.getElementById('bgMusic');
         let musicStarted = false;
+        let slideTimer, msgTimer;
+        let slideCountdownFinished = false;
+        let msgCountdownFinished = false;
 
         // --- MUSIC LOGIC (Starts ONLY when Slideshow starts) ---
         function startMusic() {
@@ -326,7 +345,7 @@
             const diffToTarget = targetDate - now;
 
             if (diffToTarget <= 0) {
-                document.querySelector('.countdown-box').innerHTML = "<h2 style='color:#ffd700;'>🎉 Happy Birthday! Card khul raha hai...</h2>";
+                document.querySelector('.countdown-box').innerHTML = "<h2 style='color:#ffd700;'>🎉 Happy Birthday! Card Khul Raha Hai...</h2>";
                 setTimeout(triggerCelebrationAndOpen, 1500);
                 return;
             }
@@ -365,9 +384,7 @@
             setTimeout(skipToSlideshow, 2000);
         }
 
-        // --- NAVIGATION WITH 30 SECOND TIMERS ---
-        let slideTimer, msgTimer;
-
+        // --- NAVIGATION ---
         function skipToSlideshow() {
             document.getElementById('step-welcome').classList.add('hidden');
             document.getElementById('step-slideshow').classList.remove('hidden');
@@ -384,50 +401,73 @@
             }, 3000);
         }
 
-        // Auto-Action for Buttons
+        function showToast(message) {
+            const toast = document.getElementById('toastMessage');
+            toast.innerText = message;
+            toast.style.display = 'block';
+            setTimeout(() => { toast.style.display = 'none'; }, 2500);
+        }
+
+        // --- BUTTON 1: SLIDESHOW COUNTDOWN ---
         function startSlideCountdown() {
             let time = 30;
             const badge = document.getElementById('badgeSlide');
             badge.innerText = time + "s";
+            slideCountdownFinished = false;
             clearInterval(slideTimer);
             slideTimer = setInterval(() => {
                 time--;
                 badge.innerText = time + "s";
                 if(time <= 0) {
                     clearInterval(slideTimer);
-                    goToMessage();
+                    slideCountdownFinished = true;
+                    badge.innerText = "Go";
+                    badge.style.background = "#00ff00";
                 }
             }, 1000);
         }
 
         function goToMessage() {
+            if(!slideCountdownFinished) {
+                showToast("⏳ 30 Seconds Wait Karo!");
+                return;
+            }
             clearInterval(slideTimer);
             document.getElementById('step-slideshow').classList.add('hidden');
             document.getElementById('step-message').classList.remove('hidden');
             startMsgCountdown();
         }
 
+        // --- BUTTON 2: MESSAGE COUNTDOWN ---
         function startMsgCountdown() {
             let time = 30;
             const badge = document.getElementById('badgeMsg');
             badge.innerText = time + "s";
+            msgCountdownFinished = false;
             clearInterval(msgTimer);
             msgTimer = setInterval(() => {
                 time--;
                 badge.innerText = time + "s";
                 if(time <= 0) {
                     clearInterval(msgTimer);
-                    goToCake();
+                    msgCountdownFinished = true;
+                    badge.innerText = "Go";
+                    badge.style.background = "#00ff00";
                 }
             }, 1000);
         }
 
         function goToCake() {
+            if(!msgCountdownFinished) {
+                showToast("⏳ 30 Seconds Wait Karo!");
+                return;
+            }
             clearInterval(msgTimer);
             document.getElementById('step-message').classList.add('hidden');
             document.getElementById('step-cake').classList.remove('hidden');
         }
 
+        // --- CAKE LOGIC ---
         function cutTheCake() {
             document.getElementById('cakeWrapper').classList.add('cut-animation-active');
             document.getElementById('cutBtn').classList.add('hidden');
